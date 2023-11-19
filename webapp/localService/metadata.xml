@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="1.0" xmlns:edmx="http://schemas.microsoft.com/ado/2007/06/edmx" xmlns:m="http://schemas.microsoft.com/ado/2007/08/dataservices/metadata" xmlns:sap="http://www.sap.com/Protocols/SAPData">
+    <edmx:DataServices m:DataServiceVersion="2.0">
+        <Schema Namespace="ZSD_018_GW_MATERIAL_SRV" xml:lang="en" sap:schema-version="1" xmlns="http://schemas.microsoft.com/ado/2008/09/edm">
+            <Annotation Term="Core.SchemaVersion" String="1.0.0" xmlns="http://docs.oasis-open.org/odata/ns/edm"/>
+            <EntityType Name="Material" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="Matnr"/>
+                </Key>
+                <Property Name="Matnr" Type="Edm.String" Nullable="false" MaxLength="40" sap:unicode="false" sap:label="Material" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="Maktx" Type="Edm.String" MaxLength="40" sap:unicode="false" sap:label="Description" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="Matkl" Type="Edm.String" MaxLength="9" sap:unicode="false" sap:label="Material Group" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="Mtart" Type="Edm.String" MaxLength="4" sap:unicode="false" sap:label="Material type" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <NavigationProperty Name="Material_detail" Relationship="ZSD_018_GW_MATERIAL_SRV.Material_material_detail" FromRole="FromRole_Material_material_detail" ToRole="ToRole_Material_material_detail"/>
+            </EntityType>
+            <EntityType Name="Material_detail" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="Matnr"/>
+                </Key>
+                <Property Name="Matnr" Type="Edm.String" Nullable="false" MaxLength="40" sap:unicode="false" sap:label="Material" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="Mbrsh" Type="Edm.String" MaxLength="1" sap:unicode="false" sap:label="Industry Sector" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="Meins" Type="Edm.String" MaxLength="3" sap:unicode="false" sap:label="Base Unit" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false" sap:semantics="unit-of-measure"/>
+                <NavigationProperty Name="MaterialSet" Relationship="ZSD_018_GW_MATERIAL_SRV.Material_material_detail" FromRole="ToRole_Material_material_detail" ToRole="FromRole_Material_material_detail"/>
+            </EntityType>
+            <Association Name="Material_material_detail" sap:content-version="1">
+                <End Type="ZSD_018_GW_MATERIAL_SRV.Material" Multiplicity="*" Role="FromRole_Material_material_detail"/>
+                <End Type="ZSD_018_GW_MATERIAL_SRV.Material_detail" Multiplicity="1" Role="ToRole_Material_material_detail"/>
+                <ReferentialConstraint>
+                    <Principal Role="FromRole_Material_material_detail">
+                        <PropertyRef Name="Matnr"/>
+                    </Principal>
+                    <Dependent Role="ToRole_Material_material_detail">
+                        <PropertyRef Name="Matnr"/>
+                    </Dependent>
+                </ReferentialConstraint>
+            </Association>
+            <EntityContainer Name="ZSD_018_GW_MATERIAL_SRV_Entities" m:IsDefaultEntityContainer="true" sap:supported-formats="atom json xlsx">
+                <EntitySet Name="MaterialSet" EntityType="ZSD_018_GW_MATERIAL_SRV.Material" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:searchable="true" sap:pageable="false" sap:content-version="1"/>
+                <EntitySet Name="Material_detailSet" EntityType="ZSD_018_GW_MATERIAL_SRV.Material_detail" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:searchable="true" sap:pageable="false" sap:content-version="1"/>
+                <AssociationSet Name="Material_material_detailSet" Association="ZSD_018_GW_MATERIAL_SRV.Material_material_detail" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1">
+                    <End EntitySet="MaterialSet" Role="FromRole_Material_material_detail"/>
+                    <End EntitySet="Material_detailSet" Role="ToRole_Material_material_detail"/>
+                </AssociationSet>
+            </EntityContainer>
+            <atom:link rel="self" href="https://A03Z.UCC.OVGU.DE:443/sap/opu/odata/sap/ZSD_018_GW_MATERIAL_SRV/$metadata" xmlns:atom="http://www.w3.org/2005/Atom"/>
+            <atom:link rel="latest-version" href="https://A03Z.UCC.OVGU.DE:443/sap/opu/odata/sap/ZSD_018_GW_MATERIAL_SRV/$metadata" xmlns:atom="http://www.w3.org/2005/Atom"/>
+        </Schema>
+    </edmx:DataServices>
+</edmx:Edmx>
